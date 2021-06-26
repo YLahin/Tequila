@@ -1,0 +1,18 @@
+{
+    "name": "Tequila.Editor",
+    "rootNamespace": "Tequila",
+    "references": [
+        "GUID:ca160575744158149b37efc4907be469"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
