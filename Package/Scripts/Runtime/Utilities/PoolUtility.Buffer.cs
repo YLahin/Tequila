@@ -5,7 +5,7 @@ namespace Tequila.Utilities
 {
     public static partial class PoolUtility
     {
-        private static class StaticPool<T>
+        private static class Buffer<T>
             where T : class, new()
         {
             private static readonly Stack<T> _values = new Stack<T>();

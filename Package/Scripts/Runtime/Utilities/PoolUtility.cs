@@ -5,13 +5,13 @@
         public static void PushValue<T>(T value)
             where T : class, new()
         {
-            StaticPool<T>.PushValue(value);
+            Buffer<T>.PushValue(value);
         }
 
         public static T PullValue<T>()
             where T : class, new()
         {
-            return StaticPool<T>.PullValue();
+            return Buffer<T>.PullValue();
         }
     }
 }
