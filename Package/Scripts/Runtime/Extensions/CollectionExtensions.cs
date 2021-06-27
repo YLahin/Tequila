@@ -4,9 +4,9 @@ using UnityEngine.Assertions;
 
 namespace Tequila.Extensions
 {
+    [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
     public static class CollectionExtensions
     {
-        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         public static void AddRange<T>(this ICollection<T> self, IEnumerable<T> items)
         {
             Assert.IsNotNull(self);
@@ -18,7 +18,6 @@ namespace Tequila.Extensions
             }
         }
 
-        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         public static void RemoveRange<T>(this ICollection<T> self, IEnumerable<T> items)
         {
             Assert.IsNotNull(self);
