@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine.Assertions;
 using static Tequila.Utilities.PoolUtility;
 
 namespace Tequila.Scopes
@@ -22,6 +23,8 @@ namespace Tequila.Scopes
 
         void IDisposable.Dispose()
         {
+            Assert.IsNotNull(_stack);
+
             _stack.Clear();
 
             PushValue(_stack);
