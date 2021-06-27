@@ -20,25 +20,27 @@ namespace Tequila.Extensions
         public static bool HasComponent<T>(this GameObject self)
             where T : class
         {
+            Assert.IsNotNull(self);
+
             return self.TryGetComponent(out T _);
         }
 
-        public static bool TryGetComponentInChildren<T>(this GameObject self, out T component)
+        public static bool TryGetComponentInChildren<T>(this GameObject self, out T component, bool includeInactive = false)
             where T : class
         {
             Assert.IsNotNull(self);
 
-            component = self.GetComponentInChildren<T>();
+            component = self.GetComponentInChildren<T>(includeInactive);
 
             return component != null;
         }
 
-        public static bool TryGetComponentInParent<T>(this GameObject self, out T component)
+        public static bool TryGetComponentInParent<T>(this GameObject self, out T component, bool includeInactive = false)
             where T : class
         {
             Assert.IsNotNull(self);
 
-            component = self.GetComponentInParent<T>();
+            component = self.GetComponentInParent<T>(includeInactive);
 
             return component != null;
         }

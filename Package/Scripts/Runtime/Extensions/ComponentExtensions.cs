@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Tequila.Scopes;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -12,35 +11,31 @@ namespace Tequila.Extensions
         {
             Assert.IsNotNull(self);
 
-            return self.TryGetComponent(out T component)
-                ? component
-                : self.gameObject.AddComponent<T>();
+            return self.gameObject.GetOrAddComponent<T>();
         }
 
         public static bool HasComponent<T>(this Component self)
             where T : class
         {
-            return self.TryGetComponent(out T _);
+            Assert.IsNotNull(self);
+
+            return self.gameObject.TryGetComponent(out T _);
         }
 
-        public static bool TryGetComponentInChildren<T>(this Component self, out T component)
+        public static bool TryGetComponentInChildren<T>(this Component self, out T component, bool includeInactive = false)
             where T : class
         {
             Assert.IsNotNull(self);
 
-            component = self.GetComponentInChildren<T>();
-
-            return component != null;
+            return self.gameObject.TryGetComponentInChildren(out component, includeInactive);
         }
 
-        public static bool TryGetComponentInParent<T>(this Component self, out T component)
+        public static bool TryGetComponentInParent<T>(this Component self, out T component, bool includeInactive = false)
             where T : class
         {
             Assert.IsNotNull(self);
 
-            component = self.GetComponentInParent<T>();
-
-            return component != null;
+            return self.gameObject.TryGetComponentInParent(out component, includeInactive);
         }
 
         public static int TryGetComponentsInChildren<T>(this Component self, ICollection<T> components, bool includeInactive = false)
@@ -50,13 +45,7 @@ namespace Tequila.Extensions
             Assert.IsNotNull(components);
             Assert.IsTrue(components.Count == 0);
 
-            using (ListScope<T>.Create(out var results))
-            {
-                self.GetComponentsInChildren(includeInactive, results);
-                components.AddRange(results);
-
-                return results.Count;
-            }
+            return self.gameObject.TryGetComponentsInChildren(components, includeInactive);
         }
 
         public static int TryGetComponentsInParent<T>(this Component self, ICollection<T> components, bool includeInactive = false)
@@ -66,13 +55,7 @@ namespace Tequila.Extensions
             Assert.IsNotNull(components);
             Assert.IsTrue(components.Count == 0);
 
-            using (ListScope<T>.Create(out var results))
-            {
-                self.GetComponentsInParent(includeInactive, results);
-                components.AddRange(results);
-
-                return results.Count;
-            }
+            return self.gameObject.TryGetComponentsInParent(components, includeInactive);
         }
     }
 }
