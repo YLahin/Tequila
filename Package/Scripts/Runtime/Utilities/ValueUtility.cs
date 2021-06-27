@@ -1,5 +1,5 @@
 ﻿using System;
-using UnityEngine;
+using Tequila.Extensions;
 using UnityEngine.Assertions;
 
 namespace Tequila.Utilities
@@ -13,9 +13,9 @@ namespace Tequila.Utilities
             return (index + 1) / (float) lenght;
         }
 
-        public static bool TrySetValue(ref float sourceValue, in float targetValue)
+        public static bool TrySetValue(ref float sourceValue, float targetValue)
         {
-            if (Mathf.Approximately(sourceValue, targetValue))
+            if (sourceValue.Approximately(targetValue))
             {
                 return false;
             }
@@ -25,7 +25,7 @@ namespace Tequila.Utilities
             return true;
         }
 
-        public static bool TrySetValue<T>(ref T sourceValue, in T targetValue)
+        public static bool TrySetValue<T>(ref T sourceValue, T targetValue)
             where T : IEquatable<T>
         {
             if (sourceValue.Equals(targetValue))
