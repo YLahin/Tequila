@@ -24,6 +24,25 @@ namespace Tequila.Extensions
             }
         }
 
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> self, Func<TSource, TKey> getKey)
+        {
+            Assert.IsNotNull(self);
+            Assert.IsNotNull(getKey);
+
+            using (HashSetScope<TKey>.Create(out var keys))
+            {
+                foreach (var item in self)
+                {
+                    var key = getKey(item);
+
+                    if (keys.Add(key))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+        }
+
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> self, Action<T> action)
         {
             Assert.IsNotNull(self);

@@ -6,15 +6,25 @@ namespace Tequila.Extensions
 {
     public static class SerializedObjectExtensions
     {
-        public static IEnumerable<SerializedProperty> GetSerializedProperties(this SerializedObject self, bool enterChildren)
+        public static IEnumerable<SerializedProperty> GetSerializedProperties(this SerializedObject self, bool enterChildren, bool onlyVisible)
         {
             Assert.IsNotNull(self);
 
-            using var property = self.GetIterator();
+            using var iterator = self.GetIterator();
 
-            while (property.Next(enterChildren))
+            if (onlyVisible)
             {
-                yield return property;
+                while (iterator.NextVisible(enterChildren))
+                {
+                    yield return iterator;
+                }
+            }
+            else
+            {
+                while (iterator.Next(enterChildren))
+                {
+                    yield return iterator;
+                }
             }
         }
     }
